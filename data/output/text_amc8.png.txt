@@ -1,0 +1,41 @@
+ Problem 3
+ What is the value of the expression V 16V8V4?
+(A)4(B)42(C)8(D)82(E)16
+ Solution
+ Problem 4
+ When 0.000315 is multiplied by 7, 928, 564 the product is closest to which of the following?
+(A)210(B)240(C)2100(D)2400(E)24000
+ Solution
+ Problems
+1.2.3.4.5.6.7.8
+ What is the value of the expression 1+2+3+4+5+6+7+8
+(A)1020(B)1120(C)1220(D)2240(E)3360
+ Solution
+ Problem 6
+ If the degree measures of the angles of a triangle are in the ratio: 3: 4, what is the degree measure of the largest angle of the triangle?
+(A)18(B)36
+(C)60
+(D)72(E)90
+ Solution
+ Problem 7
+ Let Z be a 6-digit positive integer, such as 247247, whose first three digits are the same as its last three digits taken in the same order. Which of the
+ following numbers must also be a factor of 2?
+(A)11(B)19(C)101(D)111(1111
+ Solution
+ Problem 8
+ Malcolm wants to visit Isabella after school today and knows the street where she lives but doesn t know her house number. She tells him, "My hous
+ number has two digits, and exactly three of the following four statements about it are true. "
+ (1)It is prime.
+ (2)It is even.
+ (3)It is divisible by 7.
+ (4)One of its digits is 9.
+ This information allows Malcolm to determine Isabella's house number. What is its units digit?
+(A)4(B)6(C)7(D)8(E)9
+ Solution
+ Problem 9
+ All of Marcy's marbles are blue, red, green, or yellow. One third of her marbles are blue, one fourth of them are red, and six of them are green. Wha
+ the smallest number of yellow marbles that Marcy could have?
+(A)1(B)2(C)3(D)4E)5
+ Solution
+ Problem 10
+ ibilindor nhn?title-?017 AMC problems

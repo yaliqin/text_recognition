@@ -1,0 +1,4 @@
+ Problem 3
+ What is the value of the expression V 16V8V4?
+(A)4(B)42(C)8(D)82(E)16
+ Solution

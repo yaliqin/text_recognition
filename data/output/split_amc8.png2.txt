@@ -1,0 +1,6 @@
+ Problem 6
+ If the degree measures of the angles of a triangle are in the ratio: 3: 4, what is the degree measure of the largest angle of the triangle?
+(A)18(B)36
+(C)60
+(D)72(E)90
+ Solution

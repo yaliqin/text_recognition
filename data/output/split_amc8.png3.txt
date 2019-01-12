@@ -1,0 +1,5 @@
+ Problem 7
+ Let Z be a 6-digit positive integer, such as 247247, whose first three digits are the same as its last three digits taken in the same order. Which of the
+ following numbers must also be a factor of 2?
+(A)11(B)19(C)101(D)111(1111
+ Solution

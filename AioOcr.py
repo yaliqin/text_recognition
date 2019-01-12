@@ -20,7 +20,7 @@ from split_image import split_image
 # output_file = '/Users/ally/Documents/python/baidu_ocr/output'+str(file_number)+'.txt'
 
 
-def baidu_ocr(img_input_file):
+def baidu_ocr(img_input_file, output_path):
     access_token=gen_key(constants.API_KEY,constants.SECRET_KEY)
     url = 'https://aip.baidubce.com/rest/2.0/ocr/v1/accurate?access_token=' + access_token
     # read image files in current directory
@@ -29,8 +29,11 @@ def baidu_ocr(img_input_file):
     #         img_input_file = entry.name
     #         txt_output_file = 'text_'+ entry.name + '.txt'
     #         location_output_file ='location_'+ entry.name + '.txt'
-    txt_output_file = 'text_'+ img_input_file + '.txt'
-    location_output_file ='location_'+ img_input_file + '.txt'
+    file = os.path.basename(img_input_file)
+    path = os.path.dirname(img_input_file)
+
+    txt_output_file = os.path.join(output_path + 'text_'+ file + '.txt')
+    location_output_file =os.path.join(output_path + 'location_'+ file + '.txt')
 
     f = open(img_input_file, 'rb')
     img = base64.b64encode(f.read())
@@ -84,7 +87,7 @@ def baidu_ocr(img_input_file):
     return location_output_file,txt_output_file
 
 
-def text_block_split(txt_input_file, problem_pattern):
+def text_block_split(txt_input_file, problem_pattern,output_path):
     line_number = []
     output_file_num = 0
 
@@ -93,13 +96,14 @@ def text_block_split(txt_input_file, problem_pattern):
     f1.close()
     line_count = 0
     block_count = 0
+    file = os.path.basename(img_input_file)
 
     for line in lines_1: #get the problem start line number
         match_result = re.match(problem_pattern,line)
         if match_result:
             line_number.append(line_count)
             if block_count > 0:
-                txt_output_file = os.path.join('split_'+txt_input_file+("%d.txt" %output_file_num))
+                txt_output_file = os.path.join(output_path,'split_'+file+("%d.txt" %output_file_num))
                 f2 = open(txt_output_file,'w')
                 write_line_number = line_number[block_count] - line_number[block_count-1]
                 for i in range(write_line_number):
@@ -111,7 +115,7 @@ def text_block_split(txt_input_file, problem_pattern):
 
     line_number.append(line_count-1)  #add last line number for end of last block
     if block_count == 1: # only one block, output file should copy all content of input file
-        txt_output_file = os.path.join('split_'+txt_input_file+("%d.txt" %output_file_num))
+        txt_output_file = os.path.join(output_path,'split_'+file+("%d.txt" %output_file_num))
         # txt_output_file = os.path.join('split_'+txt_input_file+("%d.txt" %output_file_num))
         f2 = open(txt_output_file,'w')
         for i in range(line_count-line_number[0]):
@@ -120,7 +124,7 @@ def text_block_split(txt_input_file, problem_pattern):
     elif block_count == 0:
         print('input wrong problem pattern')
     else: #output last block
-        txt_output_file = os.path.join('split_'+txt_input_file+("%d.txt" %output_file_num))
+        txt_output_file = os.path.join(output_path,'split_'+file+("%d.txt" %output_file_num))
         f2 = open(txt_output_file,'w')
         for i in range(line_number[block_count]-line_number[block_count-1]):
             f2.write(lines_1[line_number[block_count-1]+i])
@@ -133,7 +137,7 @@ def text_block_split(txt_input_file, problem_pattern):
 # so input_location_file stores each identified text line location information
 # line_number stores text block start line number
 # to crop image, the location should be stored as left,up,right,lower
-def gen_block_box(line_number, input_location_file):
+def gen_block_box(line_number, input_location_file,output_path):
     with open(input_location_file, 'r') as ins:
         right_position = []
         lower_position = []
@@ -159,7 +163,8 @@ def gen_block_box(line_number, input_location_file):
     # lines = f1.readlines()  # in each line contain [top, left, width, height]
     # f1.close()
 
-    output_location_file = 'for_crop '+input_location_file
+    file = os.path.basename(input_location_file)
+    output_location_file = os.path.join(output_path,'for_crop '+file)
     f2 = open(output_location_file, 'w')
 
     line_size = len(line_number)#line_number's last element is the last line of text file
@@ -183,15 +188,20 @@ def gen_block_box(line_number, input_location_file):
 
 
 if __name__ == '__main__':
+
+    # current_path = sys.path.append(os.getcwd())
     img_input_file = 'amc8.png'
-    location_file, txt_file = baidu_ocr(img_input_file) # extract whole text and location
+    concated_input_file = 'data/input/'+img_input_file
+    output_path = 'data/output/'
+    location_file, txt_file = baidu_ocr(concated_input_file, output_path) # extract whole text and location
+
     amc_pattern = r'^\s*Problem [1-9][0-9]?'
     normal_pattern = r'^\s*[1-9][0-9]?\.'
 
     # txt_file = 'text_8.jpg.txt'
     # location_file = 'location_8.jpg.txt'
-    line_number = text_block_split(txt_file,amc_pattern) #gen text block from whole text file
-    file_name = gen_block_box(line_number,location_file)
+    line_number = text_block_split(txt_file,amc_pattern,output_path) #gen text block from whole text file
+    file_name = gen_block_box(line_number,location_file,output_path)
     pattern = re.compile(r'.[a-z]+$')
     img_out_file_prefix=pattern.sub('', img_input_file)
-    n=split_image(file_name,img_input_file,img_out_file_prefix ) #split orininal image based on text block information
+    n=split_image(file_name,concated_input_file,img_out_file_prefix,output_path ) #split orininal image based on text block information

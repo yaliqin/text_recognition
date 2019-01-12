@@ -1,0 +1,5 @@
+ Problem 9
+ All of Marcy's marbles are blue, red, green, or yellow. One third of her marbles are blue, one fourth of them are red, and six of them are green. Wha
+ the smallest number of yellow marbles that Marcy could have?
+(A)1(B)2(C)3(D)4E)5
+ Solution
